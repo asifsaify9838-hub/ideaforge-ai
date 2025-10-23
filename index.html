@@ -1,0 +1,213 @@
+<!doctype html>
+
+<html lang="hi">  
+<head>  
+  <meta charset="utf-8" />  
+  <meta name="viewport" content="width=device-width,initial-scale=1" />  
+  <title>IdeaForge AI — Create Anything in Seconds</title>  
+  <meta name="description" content="IdeaForge AI - Type an idea and get a full video project: script, voices, scenes, thumbnail, and music." />  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">  
+  <style>  
+    :root{--bg:#071028;--cy:#00e5ff;--pu:#9b5cff}  
+    *{box-sizing:border-box}  
+    body{margin:0;font-family:'Poppins',sans-serif;background:#071028;color:#eef8ff;min-height:100vh;  
+      background-image: url('assets/bg.jpg'); background-size:cover; background-position:center;}  
+    .container{max-width:1100px;margin:28px auto;padding:18px;background:linear-gradient(180deg, rgba(2,8,24,0.45), rgba(2,8,24,0.6));border-radius:14px;backdrop-filter: blur(6px);}  
+    header{display:flex;align-items:center;gap:14px}  
+    header img{width:64px;height:64px;border-radius:12px}  
+    h1{margin:0;font-size:22px}  
+    .tag{color:rgba(255,255,255,0.75);font-size:13px}  
+    .hero{margin-top:18px;padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent)}  
+    label.small{font-size:13px;color:#cfefff}  
+    textarea{width:100%;height:120px;border-radius:8px;padding:12px;border:0;background:rgba(255,255,255,0.03);color:#eaf8ff;resize:vertical}  
+    .tools{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}  
+    button.primary{Padding:12px 16px;border-radius:10px;border:0;background:linear-gradient(90deg,var(--cy),var(--pu));color:#021028;font-weight:700;cursor:pointer}  
+    button.ghost{padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--cy);cursor:pointer}  
+    button.video-btn{padding:12px 16px;border-radius:10px;border:0;background:linear-gradient(90deg,#ff6b6b,#ffa500);color:#021028;font-weight:700;cursor:pointer}  
+    .row{display:flex;gap:12px;margin-top:12px}  
+    .output{margin-top:18px;background:rgba(255,255,255,0.02);padding:12px;border-radius:10px}  
+    .small{font-size:13px;color:#cddff0}  
+    .cards{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}  
+    .card{background:rgba(255,255,255,0.03);padding:16px;border-radius:12px;width:300px}  
+    pre{white-space:pre-wrap;color:#e6f7ff}  
+    footer{margin-top:24px;padding:18px;text-align:center;color:#b6d8ff;font-size:13px}  
+    .video-preview{max-width:100%;border-radius:8px;margin-top:10px}  
+    .progress-bar{width:100%;height:6px;background:rgba(255,255,255,0.1);border-radius:3px;margin-top:10px;overflow:hidden}  
+    .progress{height:100%;background:linear-gradient(90deg,var(--cy),var(--pu));transition:width 0.3s}  
+    @media(max-width:820px){.row{flex-direction:column}.cards{flex-direction:column;align-items:center}}  
+  </style>  
+</head>  
+<body>  
+  <div class="container">  
+    <header>  
+      <img src="assets/logo.png" alt="IdeaForge AI logo" onerror="this.style.display='none'">  
+      <div>  
+        <h1>IdeaForge AI</h1>  
+        <div class="tag">Soch lo. Likho. Aur AI se bana lo — script, voices, scenes, music, video.</div>  
+      </div>  
+    </header>  <section class="hero" aria-label="main">  
+  <label class="small" for="idea">Apna idea likho (Hindi/English):</label>  
+  <textarea id="idea" placeholder="e.g. Vicky Bolt fights robots in a neon futuristic city..."></textarea>  
+
+  <div class="tools" role="toolbar" aria-label="actions">  
+    <button class="primary" id="genScript">Generate Script</button>  
+    <button class="primary" id="genVoice">Generate Voice (TTS)</button>  
+    <button class="primary" id="genScene">Get Scene Prompt</button>  
+    <button class="primary" id="genMusic">Get Music</button>  
+    <button class="video-btn" id="genVideo">🎥 Generate Complete Video</button>  
+    <button class="ghost" id="genAll">Generate All</button>  
+  </div>  
+
+  <div id="status" class="small" style="margin-top:10px;color:#bff6ff"></div>  
+  <div id="progressBar" class="progress-bar" style="display:none">  
+    <div id="progress" class="progress" style="width:0%"></div>  
+  </div>  
+
+  <div class="output" id="results">  
+    <h3 class="small">Results</h3>  
+    <div id="scriptArea"></div>  
+    <div id="voiceArea"></div>  
+    <div id="sceneArea"></div>  
+    <div id="musicArea"></div>  
+    <div id="videoArea"></div>  
+  </div>  
+
+  <div class="cards" aria-label="plans and earning">  
+    <div class="card">  
+      <h4>Creator Plan</h4>  
+      <div class="small">Unlimited AI generations + HD exports</div>  
+      <button class="primary" style="margin-top:12px">₹299/month — Subscribe</button>  
+    </div>  
+    <div class="card">  
+      <h4>Affiliate Partner</h4>  
+      <div class="small">Refer & earn commission</div>  
+      <button class="primary" style="margin-top:12px">Join Affiliate</button>  
+    </div>  
+    <div class="card">  
+      <h4>Ad Revenue</h4>  
+      <div class="small">Connect AdSense & earn from traffic</div>  
+      <div style="margin-top:12px;height:90px;background:rgba(255,255,255,0.02);border-radius:8px;display:flex;align-items:center;justify-content:center;color:#9fbfe6;">  
+        (Ad space)  
+      </div>  
+    </div>  
+  </div>  
+</section>  
+
+<footer>  
+  © 2025 IdeaForge AI • Built for creators • Deploy: GitHub + Vercel  
+</footer>
+
+  </div>  <script>  
+  const ideaEl = document.getElementById('idea');  
+  const statusEl = document.getElementById('status');  
+  const progressBar = document.getElementById('progressBar');  
+  const progress = document.getElementById('progress');  
+  const scriptArea = document.getElementById('scriptArea');  
+  const voiceArea = document.getElementById('voiceArea');  
+  const sceneArea = document.getElementById('sceneArea');  
+  const musicArea = document.getElementById('musicArea');  
+  const videoArea = document.getElementById('videoArea');  
+
+  function updateProgress(percent, message = '') {  
+    progressBar.style.display = 'block';  
+    progress.style.width = percent + '%';  
+    if (message) statusEl.textContent = message;  
+  }  
+
+  async function callApi(path, body){  
+    statusEl.textContent = 'Working...';  
+    try{  
+      const res = await fetch(path, {   
+        method:'POST',   
+        headers:{'Content-Type':'application/json'},   
+        body:JSON.stringify(body)   
+      });  
+      const j = await res.json();  
+      statusEl.textContent = '';  
+      progressBar.style.display = 'none';  
+      return j;  
+    }catch(e){  
+      statusEl.textContent = '';  
+      progressBar.style.display = 'none';  
+      return { error: String(e) };  
+    }  
+  }  
+
+  // Existing functions  
+  document.getElementById('genScript').onclick = async ()=>{  
+    const idea = ideaEl.value.trim();  
+    if(!idea){ alert('Please type an idea'); return; }  
+    scriptArea.innerHTML = '<em class="small">Generating script...</em>';  
+    const r = await callApi('/api/generate/script', { idea });  
+    if(r.error) scriptArea.innerHTML = `<pre>${r.error}</pre>`;  else scriptArea.innerHTML = `<h4>Script</h4><pre>${r.script}</pre>`;
+
+};
+
+document.getElementById('genVoice').onclick = async ()=>{
+const idea = ideaEl.value.trim();
+if(!idea){ alert('Please type an idea'); return; }
+voiceArea.innerHTML = '<em class="small">Generating voice...</em>';
+const r = await callApi('/api/generate/voice', { idea, lang:'hi' });
+if(r.error) voiceArea.innerHTML = `<pre>${r.error}</pre>`;
+else voiceArea.innerHTML = `<div class="small">Voice audio:</div><audio controls src="${r.audioUrl}"></audio><div class="small">${r.text}</div>`;
+};
+
+document.getElementById('genScene').onclick = async ()=>{
+const idea = ideaEl.value.trim();
+if(!idea){ alert('Please type an idea'); return; }
+sceneArea.innerHTML = '<em class="small">Creating scene prompt...</em>';
+const r = await callApi('/api/generate/scene', { idea });
+if(r.error) sceneArea.innerHTML = `<pre>${r.error}</pre>`;
+else sceneArea.innerHTML = `<h4>Scene Prompt</h4><pre>${r.prompt}</pre>`;
+};
+
+document.getElementById('genMusic').onclick = async ()=>{
+const idea = ideaEl.value.trim();
+if(!idea){ alert('Please type an idea'); return; }
+musicArea.innerHTML = '<em class="small">Suggesting music...</em>';
+const r = await callApi('/api/generate/music', { idea });
+if(r.error) musicArea.innerHTML = `<pre>${r.error}</pre>`;
+else musicArea.innerHTML = `<h4>Music</h4><pre>${r.suggestion || r.musicHtml}</pre>`;
+};
+
+// NEW: Video Generation Function
+document.getElementById('genVideo').onclick = async ()=>{
+const idea = ideaEl.value.trim();
+if(!idea){ alert('Please type an idea'); return; }
+
+videoArea.innerHTML = '<em class="small">🎥 Generating complete video... This may take 1-2 minutes.</em>';  
+
+const r = await callApi('/api/generate/video', { idea });  
+
+if(r.error) {  
+  videoArea.innerHTML = `<pre>Error: ${r.error}</pre>`;  
+} else {  
+  videoArea.innerHTML = `  
+    <h4>🎬 Your AI Generated Video</h4>  
+    <video class="video-preview" controls width="100%">  
+      <source src="${r.videoUrl}" type="video/mp4">  
+      Your browser does not support the video tag.  
+    </video>  
+    <div class="small" style="margin-top:10px">  
+      <strong>Video Details:</strong><br>  
+      Duration: ${r.duration || '30 seconds'}<br>  
+      Status: ${r.status || 'Completed'}<br>  
+      <a href="${r.videoUrl}" download="ai-video.mp4">📥 Download Video</a>  
+    </div>  
+  `;  
+}
+
+};
+
+document.getElementById('genAll').onclick = async ()=>{
+document.getElementById('genAll').disabled=true;
+await document.getElementById('genScript').click();
+await document.getElementById('genVoice').click();
+await document.getElementById('genScene').click();
+await document.getElementById('genMusic').click();
+document.getElementById('genAll').disabled=false;
+};
+</script>
+
+</body>  
+</html>
